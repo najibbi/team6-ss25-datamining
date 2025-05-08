@@ -1,11 +1,17 @@
 # team6-ss25-datamining
 
-Common data preprocessing steps include the following:
-	• Removing duplicates
-	• One-hot encoding: converting categorical variables to numeric
-	• Converting boolean values to integers
+## Data Preprocessing
+
+The common data preprocessing steps include:
+
+- **Removing duplicates**
+- **One-hot encoding**: Converting categorical variables to numeric
+- **Converting boolean values to integers**
+
+## Model-Specific Considerations
 
 Please be aware of the following for each model:
-	• Handling or removing outliers
-	• Standardization
-	• Rebalancing data
+
+- **Handling or removing outliers**
+- **Standardization**
+- **Rebalancing data**
