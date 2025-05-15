@@ -3,7 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import RobustScaler
 from imblearn.over_sampling import SMOTE
 
-def load_and_clean_data(filepath, split=False):
+def load_and_clean_data(filepath, split=False, standardize=True):
     df = pd.read_csv(filepath)
 
     # Remove duplicates
@@ -34,17 +34,23 @@ def load_and_clean_data(filepath, split=False):
         X_temp, y_temp, test_size=val_ratio, stratify=y_temp, random_state=42
     )
 
-    # Apply RobustScaler
-    scaler = RobustScaler()
-    X_train_scaled = scaler.fit_transform(X_train)
-    X_val_scaled = scaler.transform(X_val)
-    X_test_scaled = scaler.transform(X_test)
+    # Standardize if required
+    if standardize:
+        scaler = RobustScaler()
+        X_train = scaler.fit_transform(X_train)
+        X_val = scaler.transform(X_val)
+        X_test = scaler.transform(X_test)
+    else:
+        # Convert to NumPy arrays (SMOTE requires this)
+        X_train = X_train.values
+        X_val = X_val.values
+        X_test = X_test.values
 
     # Apply SMOTE to training data only
     smote = SMOTE(random_state=42)
-    X_train_resampled, y_train_resampled = smote.fit_resample(X_train_scaled, y_train)
+    X_train_resampled, y_train_resampled = smote.fit_resample(X_train, y_train)
 
     return (
-        X_train_resampled, X_val_scaled, X_test_scaled,
+        X_train_resampled, X_val, X_test,
         y_train_resampled, y_val, y_test
     )
