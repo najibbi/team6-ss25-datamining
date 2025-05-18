@@ -47,10 +47,10 @@ def load_and_clean_data(filepath, split=False, standardize=True):
         X_test = X_test.values
 
     # Apply SMOTE to training data only
-    smote = SMOTE(random_state=42)
-    X_train_resampled, y_train_resampled = smote.fit_resample(X_train, y_train)
+    #smote = SMOTE(random_state=42)
+    #X_train_resampled, y_train_resampled = smote.fit_resample(X_train, y_train)
 
     return (
-        X_train_resampled, X_val, X_test,
-        y_train_resampled, y_val, y_test
+        X_train, X_val, X_test,
+        y_train, y_val, y_test
     )
